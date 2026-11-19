@@ -1,0 +1,219 @@
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("fonts/barlow-condensed-bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --paper: #ffffff;
+  --ink: #000000;
+  --display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  --gutter: clamp(1rem, 5vw, 5.5rem);
+  min-block-size: 100svh;
+  border-block-start: 2px solid var(--ink);
+}
+
+.poster-intro,
+.poster-nav {
+  display: grid;
+  align-content: center;
+  padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px))
+    max(var(--gutter), env(safe-area-inset-right, 0px));
+}
+
+.poster-intro {
+  grid-template-columns: minmax(0, 44rem);
+  padding-block: calc(clamp(1.125rem, 4.5vw, 3.25rem) + env(safe-area-inset-top, 0px)) 1rem;
+}
+
+.poster-nav {
+  padding-block-end: max(1.5rem, env(safe-area-inset-bottom, 0px));
+}
+
+h1 {
+  max-inline-size: 19ch;
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2.5rem, 1.5rem + min(5vw, 5.5svh), 4.25rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.subtitle {
+  margin: 0.625rem 0 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.conference {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.75rem 0 0;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+}
+
+.conference::after {
+  content: "";
+  flex: 1;
+  border-block-start: 1px solid;
+}
+
+.resources {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resource {
+  display: grid;
+  grid-template: "name action" "detail action" / minmax(0, 1fr) auto;
+  align-content: center;
+  gap: 0.125rem 1rem;
+  min-block-size: 4.25rem;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--ink);
+  color: inherit;
+  background: var(--paper);
+  text-decoration: none;
+}
+
+.resource:not([href]) {
+  border-color: transparent;
+  border-block-end-color: var(--ink);
+}
+
+.resource-label {
+  grid-area: name;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.resource-detail {
+  grid-area: detail;
+  font-size: 1rem;
+}
+
+.resource[href] {
+  touch-action: manipulation;
+}
+
+.resource-primary[href] {
+  min-block-size: 5rem;
+  border-width: 2px;
+}
+
+.resource-primary .resource-label {
+  font-size: 1.75rem;
+}
+
+.resource[href]::after {
+  content: "";
+  grid-area: action;
+  place-self: center;
+  inline-size: 0.7rem;
+  block-size: 0.7rem;
+  margin-inline-end: 0.25rem;
+  border-block-start: 2px solid;
+  border-inline-end: 2px solid;
+  transform: rotate(45deg);
+}
+
+.resource[href] .pending {
+  display: none;
+}
+
+.resource[href]:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.resource[href]:active {
+  color: var(--paper);
+  background: var(--ink);
+}
+
+@media (hover: hover) {
+  .resource[href]:hover .resource-label {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+}
+
+@media (forced-colors: active) {
+  .resource[href] .resource-label {
+    text-decoration: underline;
+  }
+}
+
+@media (min-width: 52rem), (min-width: 44rem) and (orientation: landscape) {
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+
+  .poster-intro,
+  .poster-nav {
+    padding-block: max(1.25rem, env(safe-area-inset-top, 0px))
+      max(1.25rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .poster-intro {
+    justify-content: end;
+  }
+
+  .poster-nav {
+    grid-template-columns: minmax(0, 29rem);
+    border-inline-start: 1px solid var(--ink);
+  }
+
+  h1 {
+    max-inline-size: 16ch;
+    font-size: clamp(2.5rem, 1rem + min(6.15vw, 10svh), 5.5rem);
+  }
+
+  .subtitle {
+    margin-block-start: 1rem;
+    font-size: 1.125rem;
+  }
+
+  .conference {
+    margin-block-start: 1.25rem;
+  }
+}
+
+::selection {
+  color: var(--paper);
+  background: var(--ink);
+}
